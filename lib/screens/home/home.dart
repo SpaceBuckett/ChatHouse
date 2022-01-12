@@ -22,105 +22,157 @@ class HomeScreen extends StatelessWidget {
             upperBar(user.userName, user.userImageUrl),
             storiesSection(),
             groupsSection(),
-
-            // Starting the recents section
-
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0, right: 10, left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Recents',
-                    style: kHeadingText.copyWith(fontSize: 24),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.transparent),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5,
-                              spreadRadius: 1,
-                              color: Colors.grey[300]!,
-                              offset: const Offset(1, 1),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: CircleImage(
-                                        imageRadius: 25,
-                                        imageProvider:
-                                            AssetImage('assets/user1.jpg'),
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Corey Ana',
-                                          // messageSenderName,
-                                          style: kHeadingText.copyWith(
-                                              fontSize: 16),
-                                        ),
-                                        const SizedBox(
-                                          height: 3,
-                                        ),
-                                        // const Text('Lorem Ispum is a ...'),
-                                        const Text(
-                                          'Hello, are you there',
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: const [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 8.0, top: 8),
-                                      child: Text(
-                                        '3 min',
-                                        // timeAgo,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        )),
-                  )
-                ],
-              ),
-            )
+            recentTextsSection()
           ],
         ),
       ),
+    );
+  }
+
+  Padding recentTextsSection() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0, right: 10, left: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Recents',
+            style: kHeadingText.copyWith(fontSize: 24),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ListView.builder(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: 4,
+            itemBuilder: (BuildContext context, int index) {
+              return messageCard();
+            },
+          ),
+          const SizedBox(height: 50)
+
+          // messageCard()
+        ],
+      ),
+    );
+  }
+
+  Padding messageCard() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+          height: 70,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.transparent),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 5,
+                spreadRadius: 1,
+                color: Colors.grey[300]!,
+                offset: const Offset(1, 1),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircleImage(
+                  imageProvider: AssetImage('assets/user1.jpg'),
+                  imageRadius: 25,
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'John Siphron',
+                      style: kHeadingText.copyWith(fontSize: 16),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+                    child: Text(
+                      'I wanted to ask about flutter, whenev...',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  )
+                ],
+              ),
+              Text(
+                '3 min',
+                style: TextStyle(color: Colors.grey[400]!),
+              )
+            ],
+          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Column(
+          //       children: [
+          //         Row(
+          //           children: [
+          //             const Padding(
+          //               padding: EdgeInsets.all(8.0),
+          //               child: CircleImage(
+          //                 imageRadius: 25,
+          //                 imageProvider:
+          //                     AssetImage('assets/user1.jpg'),
+          //               ),
+          //             ),
+          //             Column(
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               crossAxisAlignment:
+          //                   CrossAxisAlignment.start,
+          //               children: [
+          //                 Text(
+          //                   'Corey Ana',
+          //                   // messageSenderName,
+          //                   style:
+          //                       kHeadingText.copyWith(fontSize: 16),
+          //                 ),
+          //                 const SizedBox(
+          //                   height: 3,
+          //                 ),
+          //                 // const Text('Lorem Ispum is a ...'),
+          //                 const Text(
+          //                   'Hello, are you there',
+          //                   overflow: TextOverflow.ellipsis,
+          //                 ),
+          //               ],
+          //             ),
+          //           ],
+          //         ),
+          //         Column(
+          //           mainAxisAlignment: MainAxisAlignment.start,
+          //           children: const [
+          //             Padding(
+          //               padding:
+          //                   EdgeInsets.only(right: 8.0, top: 8),
+          //               child: Text(
+          //                 '3 min',
+          //                 // timeAgo,
+          //                 style: TextStyle(
+          //                   color: Colors.grey,
+          //                   fontSize: 12,
+          //                 ),
+          //               ),
+          //             ),
+          //           ],
+          //         )
+          //       ],
+          //     )
+          //   ],
+          // ),
+          ),
     );
   }
 
@@ -163,7 +215,7 @@ class HomeScreen extends StatelessWidget {
           CarouselSlider(
             options: CarouselOptions(
               pageSnapping: true,
-              autoPlay: false,
+              autoPlay: true,
               aspectRatio: 2.0,
               enlargeCenterPage: true,
               viewportFraction: 0.67,
