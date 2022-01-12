@@ -14,7 +14,7 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   int _selectedPage = 0;
   List<Widget> pages = <Widget>[
-    const HomeScreen(),
+    HomeScreen(),
     const ChatScreen(),
     const ProfileScreen(),
   ];
