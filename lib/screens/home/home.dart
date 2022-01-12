@@ -5,6 +5,7 @@ import 'package:chathouse/apis/user.dart';
 import 'package:chathouse/custom_widgets/circular_avatar.dart';
 import 'package:chathouse/custom_widgets/story_circle_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -14,164 +15,324 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          upperBar(user.userName, user.userImageUrl),
-          storiesSection(),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Groups",
-                        style: kHeadingText.copyWith(fontSize: 24),
-                      ),
-                      Row(
-                        children: const [
-                          Text(
-                            'See all',
-                            style:
-                                TextStyle(fontSize: 16, color: kPrimaryColor),
-                          ),
-                          Icon(
-                            Icons.arrow_right,
-                            size: 22,
-                            color: kPrimaryColor,
-                          )
-                        ],
-                      ),
-                    ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            upperBar(user.userName, user.userImageUrl),
+            storiesSection(),
+            groupsSection(),
+
+            // Starting the recents section
+
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0, right: 10, left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Recents',
+                    style: kHeadingText.copyWith(fontSize: 24),
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: 200,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF8c9eff),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          color: const Color(0xFF8c9eff).withOpacity(0.4),
-                          blurRadius: 10,
-                          spreadRadius: 1,
-                          offset: const Offset(5, 5))
-                    ],
+                  const SizedBox(
+                    height: 10,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15.0, right: 10, left: 10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Flexible(
-                              flex: 2,
-                              child: Text(
-                                'Flutter Community',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 30,
-                              width: 30,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.redAccent,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  '1',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.transparent),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              color: Colors.grey[300]!,
+                              offset: const Offset(1, 1),
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 10.0,
-                          left: 10,
-                          bottom: 15,
-                        ),
-                        child: Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircleImage(
-                                  imageRadius: 25,
-                                  imageProvider: AssetImage(user.userImageUrl),
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Corey Ana',
-                                    style: kHeadingText.copyWith(fontSize: 16),
-                                  ),
-                                  const SizedBox(
-                                    height: 3,
-                                  ),
-                                  const Text('Lorem Ispum is a ...'),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(right: 8.0, top: 8),
-                                    child: Text(
-                                      '3 min',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: CircleImage(
+                                        imageRadius: 25,
+                                        imageProvider:
+                                            AssetImage('assets/user1.jpg'),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Corey Ana',
+                                          // messageSenderName,
+                                          style: kHeadingText.copyWith(
+                                              fontSize: 16),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        // const Text('Lorem Ispum is a ...'),
+                                        const Text(
+                                          'Hello, are you there',
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(right: 8.0, top: 8),
+                                      child: Text(
+                                        '3 min',
+                                        // timeAgo,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        )),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding groupsSection() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Groups",
+                  style: kHeadingText.copyWith(fontSize: 24),
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      'See all',
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    ),
+                    Icon(
+                      Icons.arrow_right,
+                      size: 22,
+                      color: kPrimaryColor,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+
+          // input the carousel over here
+
+          CarouselSlider(
+            options: CarouselOptions(
+              pageSnapping: true,
+              autoPlay: false,
+              aspectRatio: 2.0,
+              enlargeCenterPage: true,
+              viewportFraction: 0.67,
+            ),
+            items: [
+              groupCard(
+                'Flutter Community',
+                '3',
+                'assets/user1.jpg',
+                'Ronald',
+                'Lorem Ispum is a ...',
+                '2 min',
+                const Color(0xFF8c9eff),
+              ),
+              groupCard(
+                'Github Community',
+                '11',
+                'assets/user3.jpg',
+                'Emtiaz',
+                'Lorem Ispum is a ...',
+                '4 min',
+                const Color(0xFFe91e63),
+              ),
+              groupCard(
+                'Hardened Buddies',
+                '7',
+                'assets/user4.jpg',
+                'Zarar',
+                'Lorem Ispum is a ...',
+                '2 min',
+                const Color(0xFF9c27b0),
+              ),
+              groupCard(
+                'Apsacian Bravos',
+                '13',
+                'assets/user2.jpg',
+                'Karar',
+                'Lorem Ispum is a ...',
+                '9 min',
+                const Color(0xFF00acc1),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container groupCard(
+      String groupName,
+      String unreadTexts,
+      String messageSenderAvatar,
+      String messageSenderName,
+      String message,
+      String timeAgo,
+      Color cardColor) {
+    return Container(
+      height: 200,
+      width: 250,
+      decoration: BoxDecoration(
+        color: cardColor,
+        //  Color(0xFF8c9eff),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+              color: cardColor.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(5, 5))
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0, right: 10, left: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text(
+                    groupName,
+                    // 'Flutter Community',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent,
+                  ),
+                  child: Center(
+                    child: Text(
+                      unreadTexts,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 10.0,
+              left: 10,
+              bottom: 15,
+            ),
+            child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleImage(
+                      imageRadius: 25,
+                      imageProvider: AssetImage(messageSenderAvatar),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        // 'Corey Ana',
+                        messageSenderName,
+                        style: kHeadingText.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      // const Text('Lorem Ispum is a ...'),
+                      Text(message),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0, top: 8),
+                        child: Text(
+                          // '3 min',
+                          timeAgo,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           )
-
-          // const SizedBox(
-          //   width: 10,
-          // ),
         ],
       ),
     );
