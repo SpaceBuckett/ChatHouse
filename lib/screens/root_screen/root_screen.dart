@@ -15,7 +15,7 @@ class _RootScreenState extends State<RootScreen> {
   int _selectedPage = 0;
   List<Widget> pages = <Widget>[
     HomeScreen(),
-    const ChatScreen(),
+    ChatScreen(),
     const ProfileScreen(),
   ];
   void _onItemTapped(int index) {
